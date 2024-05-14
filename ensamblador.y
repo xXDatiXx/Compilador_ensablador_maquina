@@ -1,23 +1,24 @@
-%{
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+%token MOV INT RET JMP JZ JE INC CMP
+%token REG DL DH AX BX CX DX
+%token NUMBER LABEL
 
-// Define aquí cualquier función adicional necesaria o incluye encabezados.
-void yyerror(const char *s);
-int yylex(void);
+%{
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+
+    extern int yylex(); //Para acceder a las funciones de lex
+    extern FILE *yyin; //Detectar un archivo externo, en este caso lo que va a reconcoer
+    int yyerror(const char* s);
+	#pragma warning(disable: )
+
 
 %}
 
 %union {
-    int ival;
-    char *sval;
+    int ival;   // Usado para valores enteros
+    char *sval; // Usado para cadenas de caracteres
 }
-
-%token <ival> NUMBER
-%token <sval> LABEL
-%token MOV INT RET JMP JZ JE INC CMP
-%token AX BX CX DX REG
 
 %type <ival> expression
 %type <sval> identifier

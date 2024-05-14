@@ -1,15 +1,14 @@
 %{
-#include "ensamblador.tab.h" 
+    #include "ensamblador.tab.h" 
+
+    extern int yyerror(const char* s); //Por si no reconoce un caracter
+    #pragma warning(disable: )
+
 %}
 
-/*Definiciones de los tokens*/
-    %token MOV INT RET JMP JZ JE INC CMP
-    %token REG DL DH AX BX CX DX
-    %token NUMBER LABEL
+%option noyywrap
 
 %%
-
-#Patrones para registros y operadores especiales
 
 "mov"           { return MOV; }
 "int"           { return INT; }
@@ -26,19 +25,15 @@
 "cx"            { return CX; }
 "dx"            { return DX; }
 
-#Patrón para números (hexadecimales y decimales)
-[0-9]+          { yylval = atoi(yytext); return NUMBER; }
-"0x"[0-9A-Fa-f]+ { yylval = strtol(yytext, NULL, 16); return NUMBER; }
+[0-9]+          { yylval.ival = atoi(yytext); return NUMBER; }
 
-#Patrones para etiquetas
-[a-zA-Z_][a-zA-Z0-9_]* { yylval = strdup(yytext); return LABEL; }
+"0x"[0-9A-Fa-f]+ { yylval.sval = strtol(yytext, NULL, 16); return NUMBER; }
 
-#Espacios en blanco
+[a-zA-Z_][a-zA-Z0-9_]* { yylval.sval = strdup(yytext); return LABEL; }
+
 [ \t\n]+        { /* ignorar espacios en blanco */ }
 
 
-.               { /* caracteres no reconocidos */ }
+.               { /* caracteres no reconocidos, los ; son comentarios en ensamblador */ }
 
 %%
-
-int yywrap() { return 1; }
