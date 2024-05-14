@@ -394,7 +394,7 @@ char *yytext;
     #include "ensamblador.tab.h" 
 
     extern int yyerror(const char* s); //Por si no reconoce un caracter
-    #pragma warning(disable: )
+    #pragma warning(disable: 28251 6385 6011 4273 4013 4047 4267 4244 4012 4312 4273)
 
 
 /* Macros after this point can all be overridden by user definitions in

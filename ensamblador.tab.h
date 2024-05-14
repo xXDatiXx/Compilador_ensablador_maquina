@@ -66,8 +66,9 @@ typedef union YYSTYPE
 {
 
 
-    int ival;
-    char *sval;
+    int ival;   // Usado para valores enteros
+    char* sval; // Usado para cadenas de caracteres
+
 
 
 

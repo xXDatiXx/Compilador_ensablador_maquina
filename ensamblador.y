@@ -1,27 +1,30 @@
 %token MOV INT RET JMP JZ JE INC CMP
 %token REG DL DH AX BX CX DX
-%token NUMBER LABEL
 
 %{
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
+    #include "codegen.h"
+    CodeGen codegen();
 
     extern int yylex(); //Para acceder a las funciones de lex
     extern FILE *yyin; //Detectar un archivo externo, en este caso lo que va a reconcoer
     int yyerror(const char* s);
-	#pragma warning(disable: )
-
+	#pragma warning(disable: 28251 6385 6011 4273 4013 4047 4267 4244 4012 4312 4273)
 
 %}
 
 %union {
     int ival;   // Usado para valores enteros
-    char *sval; // Usado para cadenas de caracteres
+    char* sval; // Usado para cadenas de caracteres
+
 }
 
+%token <ival> NUMBER
 %type <ival> expression
 %type <sval> identifier
+%token <sval> LABEL
 
 %%
 program:
@@ -51,7 +54,7 @@ expression:
 ;
 
 identifier:
-    LABEL                               { $$ = strdup($1); }
+    LABEL                               { $$ = codegen.my_strdup($1); }
 ;
 
 %%

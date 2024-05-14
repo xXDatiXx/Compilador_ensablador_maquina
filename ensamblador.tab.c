@@ -68,13 +68,16 @@
 /* Copy the first part of user declarations.  */
 
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include "codegen.h"
+    CodeGen codegen();
 
-extern int yylex(); //Para acceder a las funciones de lex
-extern FILE *yyin; //Detectar un archivo externo, en este caso lo que va a reconcoer
-void yyerror(const char* s);
+    extern int yylex(); //Para acceder a las funciones de lex
+    extern FILE *yyin; //Detectar un archivo externo, en este caso lo que va a reconcoer
+    int yyerror(const char* s);
+	#pragma warning(disable: 28251 6385 6011 4273 4013 4047 4267 4244 4012 4312 4273)
 
 
 
@@ -131,8 +134,9 @@ typedef union YYSTYPE
 {
 
 
-    int ival;
-    char *sval;
+    int ival;   // Usado para valores enteros
+    char* sval; // Usado para cadenas de caracteres
+
 
 
 
@@ -433,8 +437,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    30,    30,    34,    36,    40,    41,    42,    43,    44,
-      45,    46,    50,    51,    52,    56
+       0,    31,    31,    35,    37,    41,    42,    43,    44,    45,
+      46,    47,    51,    52,    53,    57
 };
 #endif
 
@@ -1395,7 +1399,7 @@ yyreduce:
 
   case 15:
 
-    { (yyval.sval) = strdup((yyvsp[(1) - (1)].sval)); ;}
+    { (yyval.sval) = codegen.my_strdup((yyvsp[(1) - (1)].sval)); ;}
     break;
 
 
@@ -1611,7 +1615,7 @@ yyreturn:
 
 
 
-void yyerror(const char *s) {
+int yyerror(const char *s) {
     fprintf(stderr, "Error: %s\n", s);
 }
 
