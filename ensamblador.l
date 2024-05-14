@@ -27,7 +27,7 @@
 
 [0-9]+          { yylval.ival = atoi(yytext); return NUMBER; }
 
-"0x"[0-9A-Fa-f]+ { yylval.sval = strtol(yytext, NULL, 16); return NUMBER; }
+"0x"[0-9A-Fa-f]+ { yylval.sval = strtol(yytext, NULL, 16); return NUMBER;}
 
 [a-zA-Z_][a-zA-Z0-9_]* { yylval.sval = strdup(yytext); return LABEL; }
 
