@@ -55,7 +55,7 @@ identifier:
 ;
 
 %%
-void yyerror(const char *s) {
+int yyerror(const char *s) {
     fprintf(stderr, "Error: %s\n", s);
 }
 

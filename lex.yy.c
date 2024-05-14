@@ -392,6 +392,7 @@ static char *yy_last_accepting_cpos;
 char *yytext;
 #define INITIAL 0
     #include "ensamblador.tab.h" 
+
     extern int yyerror(const char* s); //Por si no reconoce un caracter
     #pragma warning(disable: )
 
@@ -691,7 +692,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-{ yylval.sval = strtol(yytext, NULL, 16); return NUMBER; }
+{ yylval.sval = strtol(yytext, NULL, 16); return NUMBER;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
@@ -703,7 +704,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-{ /* caracteres no reconocidos */ }
+{ /* caracteres no reconocidos, los ; son comentarios en ensamblador */ }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP

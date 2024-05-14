@@ -74,7 +74,7 @@
 
 extern int yylex(); //Para acceder a las funciones de lex
 extern FILE *yyin; //Detectar un archivo externo, en este caso lo que va a reconcoer
-int yyerror(const char* s);
+void yyerror(const char* s);
 
 
 
