@@ -1363,7 +1363,7 @@ yyreduce:
     {
         case 5:
 
-    { codegen.hello; ;}
+    { printf("ORG instruction\n"); ;}
     break;
 
   case 6:
@@ -1378,7 +1378,7 @@ yyreduce:
 
   case 8:
 
-    { printf("INC instruction\n");}
+    { printf("INC instruction\n"); ;}
     break;
 
   case 9:
@@ -1388,7 +1388,7 @@ yyreduce:
 
   case 10:
 
-    { printf("JZ instruction\n"); ;}
+    { printf("JZ instruction\n");  ;}
     break;
 
   case 11:

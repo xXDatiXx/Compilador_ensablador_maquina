@@ -40,9 +40,9 @@ instruction:
     ORG HEX_NUMBER                   { printf("ORG instruction\n"); }
     | MOV expression COMA expression { printf("MOV instruction\n"); }
     | INToken expression             { printf("INT instruction\n"); }
-    | INC expression                 { printf("INC instruction\n")}
+    | INC expression                 { printf("INC instruction\n"); }
     | JMP expression                 { printf("JMP instruction\n"); }
-    | JZ expression                  { printf("JZ instruction\n"); }
+    | JZ expression                  { printf("JZ instruction\n");  }
     | JE expression                  { printf("JE instruction\n"); }
     | CMP expression COMA expression { printf("CMP instruction\n"); }
     | RET                            { printf("RET instruction\n"); }
