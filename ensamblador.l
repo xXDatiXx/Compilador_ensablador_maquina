@@ -1,17 +1,20 @@
 %{
     #include "ensamblador.tab.h" 
+    #include "ensamblador.tab.c"
 
     extern int yyerror(const char* s); //Por si no reconoce un caracter
-    #pragma warning(disable: 28251 6385 6011 4273 4013 4047 4267 4244 4012 4312 4273)
+    #pragma warning(disable: )
+    int numeros = 0;
 
 %}
 
 %option noyywrap
+%option outfile = "proyecto.cpp"
 
 %%
 
 "mov"           { return MOV; }
-"int"           { return INT; }
+"int"           { return INToken; }
 "ret"           { return RET; }
 "jmp"           { return JMP; }
 "jz"            { return JZ; }
@@ -25,14 +28,17 @@
 "cx"            { return CX; }
 "dx"            { return DX; }
 
-[0-9]+          { yylval.ival = atoi(yytext); return NUMBER; }
+[0-9]+          {  numeros = atoi(yytext); return NUMBER; }
 
-"0x"[0-9A-Fa-f]+ { yylval.sval = strtol(yytext, NULL, 16); return NUMBER;}
+"0x"[0-9A-Fa-f]+ {  return HEX_NUMBER;}
 
-[a-zA-Z_][a-zA-Z0-9_]* { yylval.sval = strdup(yytext); return LABEL; }
+[a-zA-Z_][a-zA-Z0-9_]* {  return LABEL; }
 
-[ \t\n]+        { /* ignorar espacios en blanco */ }
+"\n"               { return *yytext; }
 
+","         { return *yytext; }
+
+[ \t]+        { /* ignorar espacios en blanco */ }
 
 .               { /* caracteres no reconocidos, los ; son comentarios en ensamblador */ }
 

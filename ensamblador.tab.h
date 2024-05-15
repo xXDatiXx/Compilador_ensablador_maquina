@@ -40,7 +40,7 @@
       know about them.  */
    enum yytokentype {
      MOV = 258,
-     INT = 259,
+     INToken = 259,
      RET = 260,
      JMP = 261,
      JZ = 262,
@@ -55,7 +55,8 @@
      CX = 271,
      DX = 272,
      NUMBER = 273,
-     LABEL = 274
+     HEX_NUMBER = 274,
+     LABEL = 275
    };
 #endif
 
@@ -67,7 +68,7 @@ typedef union YYSTYPE
 
 
     int ival;   // Usado para valores enteros
-    char* sval; // Usado para cadenas de caracteres
+    char *sval; // Usado para cadenas de caracteres
 
 
 

@@ -1,5 +1,5 @@
-%token MOV INT RET JMP JZ JE INC CMP
-%token REG DL DH AX BX CX DX
+%token MOV INToken RET JMP JZ JE INC CMP
+%token REG DL DH AX BX CX DX 
 
 %{
     #include <stdio.h>
@@ -11,63 +11,78 @@
     extern int yylex(); //Para acceder a las funciones de lex
     extern FILE *yyin; //Detectar un archivo externo, en este caso lo que va a reconcoer
     int yyerror(const char* s);
-	#pragma warning(disable: 28251 6385 6011 4273 4013 4047 4267 4244 4012 4312 4273)
+	#pragma warning(disable: )
 
 %}
 
 %union {
     int ival;   // Usado para valores enteros
-    char* sval; // Usado para cadenas de caracteres
+    char *sval; // Usado para cadenas de caracteres
 
 }
 
 %token <ival> NUMBER
+%token <sval> HEX_NUMBER
+%token <sval> LABEL
 %type <ival> expression
 %type <sval> identifier
-%token <sval> LABEL
+%left ","
 
 %%
 program:
-    statements
-;
-
-statements:
-    statement '\n' statements
-    |
-    statement
-;
+    | program statement
+    ;
 
 statement:
-    MOV expression ',' expression       { printf("MOV instruction\n"); }
-  | INT expression                      { printf("INT instruction\n"); }
-  | JMP expression                      { printf("JMP instruction\n"); }
-  | JZ expression                       { printf("JZ instruction\n"); }
-  | JE expression                       { printf("JE instruction\n"); }
-  | CMP expression ',' expression       { printf("CMP instruction\n"); }
-  | RET                                 { printf("RET instruction\n"); }
-;
+    instruction ';'               { /* acción */ }
+    ;
+
+instruction:
+    MOV expression ',' expression { printf("MOV instruction\n"); }
+    | INToken expression          { printf("INT instruction\n"); }
+    | JMP expression              { printf("JMP instruction\n"); }
+    | JZ expression               { printf("JZ instruction\n"); }
+    | JE expression               { printf("JE instruction\n"); }
+    | CMP expression ',' expression { printf("CMP instruction\n"); }
+    | RET                         { printf("RET instruction\n"); }
+    ;
+
 
 expression:
-    NUMBER                              { $$ = $1; }
+    NUMBER                              { $$ = $1; }                  
   | REG                                 { $$ = 0; } // You might want to handle registers differently
   | identifier                          { $$ = 0; } // Placeholders for identifiers
 ;
 
 identifier:
-    LABEL                               { $$ = codegen.my_strdup($1); }
+    LABEL                               { printf("LABEL \n"); }
 ;
 
 %%
 int yyerror(const char *s) {
-    fprintf(stderr, "Error: %s\n", s);
+
+   char mensaje[100];
+
+   if ( !strcmp( s, "parse error" ) )
+      strcpy( mensaje, "Error de sintaxis" );
+   else
+      strcpy( mensaje, s );
+
+   //printf("Error en linea %d: %s\n", linea, mensaje);
+   exit( 1 ); /* Sale del programa */
+
+   return 0;
 }
 
-int main(int argc, char **argv) {
-    printf("Starting the parser...\n");
-    if (yyparse() == 0) {
-        printf("Assembly parsed successfully.\n");
-    } else {
-        printf("Failed to parse assembly.\n");
-    }
+int main(int argc, char ** argv )
+{
+    ++argv, --argc;  
+    if ( argc > 0 )
+            yyin = fopen( argv[0], "r" );
+    else
+            yyin = stdin;
+
+    yyparse();
+
     return 0;
 }
