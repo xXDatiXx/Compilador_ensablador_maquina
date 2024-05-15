@@ -29,24 +29,25 @@ int numeros = 0;
 "bx"            { return BX; }
 "cx"            { return CX; }
 "dx"            { return DX; }
+"bl"            { return BL; }
 
 ";"[^\n]*       { /* ignorar comentarios*/ }
 
-"0x"[0-9A-Fa-f]+ {  return HEX_NUMBER;}
+(0x[a-fA-F0-9]+|[a-fA-F0-9]+"h") { return HEX_NUMBER;}
 
 [0-9]+          {  numeros = atoi(yytext); return NUMBER; }
 
 '\''[^\']*\'' { /* acción para capturar caracteres entre comillas simples */ }
 
-[a-zA-Z_][a-zA-Z0-9_]* {  return LABEL; }
-
-"\n"               { /* ignorar saltos*/ }
+[a-zA-Z_][a-zA-Z0-9_]*":"|[a-zA-Z_][a-zA-Z0-9_]* {  return LABEL; }
 
 ","        { return COMA; }
 
+"\n"               { /* ignorar saltos*/ }
+
 [ \t]+        { /* ignorar espacios en blanco */ }
 
-.               { /* caracteres no reconocidos, los ; son comentarios en ensamblador */ }
+.               { /* ignorar caracteres no reconocidos*/ }
 
 
 %%

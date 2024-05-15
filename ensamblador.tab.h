@@ -49,16 +49,17 @@
      CMP = 265,
      ORG = 266,
      COMA = 267,
-     REG = 268,
-     DL = 269,
-     DH = 270,
-     AX = 271,
-     BX = 272,
-     CX = 273,
-     DX = 274,
-     NUMBER = 275,
-     HEX_NUMBER = 276,
-     LABEL = 277
+     LABEL = 268,
+     REG = 269,
+     DL = 270,
+     DH = 271,
+     AX = 272,
+     BX = 273,
+     CX = 274,
+     DX = 275,
+     BL = 276,
+     NUMBER = 277,
+     HEX_NUMBER = 278
    };
 #endif
 

@@ -1,5 +1,5 @@
-%token MOV INToken RET JMP JZ JE INC CMP ORG COMA
-%token REG DL DH AX BX CX DX 
+%token MOV INToken RET JMP JZ JE INC CMP ORG COMA LABEL
+%token REG DL DH AX BX CX DX BL
 
 %{
     #include <stdio.h>
@@ -23,9 +23,8 @@
 
 %token <ival> NUMBER
 %token <sval> HEX_NUMBER
-%token <sval> LABEL
+
 %type <ival> expression
-%type <sval> identifier
 %left ","
 
 %%
@@ -34,30 +33,37 @@ program:
     ;
 
 statement:
-    instruction          { /* acción para instrucción sin salto de línea al final */ }
+    instruction  
     ;
 
 instruction:
-        ORG NUMBER { /* acción cuando se encuentra `org` seguido por un número */ }
+    ORG HEX_NUMBER { printf("name instrucción\n") }
     | MOV expression COMA expression { printf("MOV instruction\n"); }
     | INToken expression          { printf("INT instruction\n"); }
+    | INC expression              { printf("INC instruction\n")}
     | JMP expression              { printf("JMP instruction\n"); }
     | JZ expression               { printf("JZ instruction\n"); }
     | JE expression               { printf("JE instruction\n"); }
     | CMP expression COMA expression { printf("CMP instruction\n"); }
     | RET                         { printf("RET instruction\n"); }
+    | LABEL                       { printf("LABEL \n"); }
     ;
 
 
 expression:
-    NUMBER                              { $$ = $1; }                  
+    NUMBER                                              
   | REG                                 { $$ = 0; } // You might want to handle registers differently
-  | identifier                          { $$ = 0; } // Placeholders for identifiers
+  | DL
+  | DH
+  | AX
+  | BX
+  | CX
+  | DX
+  | BL
+  | HEX_NUMBER
+  | LABEL
 ;
 
-identifier:
-    LABEL                               { printf("LABEL \n"); }
-;
 
 %%
 int yyerror(const char *s) {
