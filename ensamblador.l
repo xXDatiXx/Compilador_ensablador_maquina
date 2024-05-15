@@ -1,9 +1,12 @@
 %{
 #include "ensamblador.tab.h" 
-#include "ensamblador.tab.c"
+#include "ensamblador.tab.c" 
 
-extern int yyerror(const char* s); //Por si no reconoce un caracter
-#pragma warning(disable: )
+#include <stdio.h>
+#include <stdlib.h>
+
+extern int yyerror(const char* s); 
+#pragma warning(disable: 4267 4244 4273 4065)
 int numeros = 0;
 
 %}
@@ -33,9 +36,54 @@ int numeros = 0;
 
 ";"[^\n]*       { /* ignorar comentarios*/ }
 
-(0x[a-fA-F0-9]+|[a-fA-F0-9]+"h") { return HEX_NUMBER;}
+(0x[a-fA-F0-9]+|[a-fA-F0-9]+"h") { 
+    char *ptr = yytext;
+    if (ptr[0] == '0' && (ptr[1] == 'x' || ptr[1] == 'X')) {
+        ptr += 2;  // Skip the '0x' prefix
+    } else {
+        ptr[strlen(ptr) - 1] = '\0';  // Remove the 'h' suffix
+    }
+    unsigned int num = strtol(ptr, NULL, 16);
+    printf("--Hex: %s, Binary: ", ptr);
 
-[0-9]+          {  numeros = atoi(yytext); return NUMBER; }
+    // Encuentra y elimina ceros a la izquierda
+    int leading = 1; // Flag para detectar el primer '1'
+    for (int i = sizeof(num) * 8 - 1; i >= 0; i--) {
+        if (num & (1 << i)) {
+            putchar('1');
+            leading = 0;
+        } else if (!leading) {
+            putchar('0');
+        }
+    }
+    if (leading) { // Si el número es cero
+        putchar('0');
+    }
+    putchar('\n');
+    return HEX_NUMBER;
+    }
+
+[0-9]+          {  
+    numeros = atoi(yytext);
+    unsigned int num = (unsigned int)numeros;
+    printf("--Decimal: %s, Binary: ", yytext);
+
+    // Encuentra y elimina ceros a la izquierda
+    int leading = 1; // Flag para detectar el primer '1'
+    for (int i = sizeof(num) * 8 - 1; i >= 0; i--) {
+        if (num & (1 << i)) {
+            putchar('1');
+            leading = 0;
+        } else if (!leading) {
+            putchar('0');
+        }
+    }
+    if (leading) { // Si el número es cero
+        putchar('0');
+    }
+    putchar('\n');
+    return NUMBER;
+    }
 
 '\''[^\']*\'' { /* acción para capturar caracteres entre comillas simples */ }
 

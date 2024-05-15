@@ -1,2 +1,2 @@
-flex -Ld ensamblador.l
+flex -L ensamblador.l
 bison -ld ensamblador.y

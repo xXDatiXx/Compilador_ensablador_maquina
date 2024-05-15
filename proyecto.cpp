@@ -261,13 +261,9 @@ static void yy_flex_free YY_PROTO(( void * ));
 
 #define YY_AT_BOL() (yy_current_buffer->yy_at_bol)
 
-
-#define FLEX_DEBUG
 typedef unsigned char YY_CHAR;
 FILE *yyin = (FILE *) 0, *yyout = (FILE *) 0;
 typedef int yy_state_type;
-
-#define FLEX_DEBUG
 extern char *yytext;
 #define yytext_ptr yytext
 
@@ -408,16 +404,6 @@ static yyconst short int yy_chk[160] =
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
 
-extern int yy_flex_debug;
-int yy_flex_debug = 1;
-
-static yyconst short int yy_rule_linenum[27] =
-    {   0,
-       15,   17,   18,   19,   20,   21,   22,   23,   24,   25,
-       26,   27,   28,   29,   30,   31,   32,   34,   36,   38,
-       40,   42,   44,   46,   48,   50
-    } ;
-
 /* The intent behind this definition is that it'll catch
  * any uses of REJECT which flex missed.
  */
@@ -428,10 +414,13 @@ static yyconst short int yy_rule_linenum[27] =
 char *yytext;
 #define INITIAL 0
 #include "ensamblador.tab.h" 
-#include "ensamblador.tab.c"
+#include "ensamblador.tab.c" 
 
-extern int yyerror(const char* s); //Por si no reconoce un caracter
-#pragma warning(disable: )
+#include <stdio.h>
+#include <stdlib.h>
+
+extern int yyerror(const char* s); 
+#pragma warning(disable: 4267 4244 4273 4065)
 int numeros = 0;
 
 
@@ -658,21 +647,6 @@ yy_find_action:
 
 do_action:	/* This label is used only to access EOF actions. */
 
-		if ( yy_flex_debug )
-			{
-			if ( yy_act == 0 )
-				fprintf( stderr, "--scanner backing up\n" );
-			else if ( yy_act < 27 )
-				fprintf( stderr, "--accepting rule at line %d (\"%s\")\n",
-				         yy_rule_linenum[yy_act], yytext );
-			else if ( yy_act == 27 )
-				fprintf( stderr, "--accepting default rule (\"%s\")\n",
-				         yytext );
-			else if ( yy_act == 28 )
-				fprintf( stderr, "--(end of buffer or a NUL)\n" );
-			else
-				fprintf( stderr, "--EOF (start condition %d)\n", YY_START );
-			}
 
 		switch ( yy_act )
 	{ /* beginning of action switch */
@@ -757,11 +731,56 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-{ return HEX_NUMBER;}
+{ 
+    char *ptr = yytext;
+    if (ptr[0] == '0' && (ptr[1] == 'x' || ptr[1] == 'X')) {
+        ptr += 2;  // Skip the '0x' prefix
+    } else {
+        ptr[strlen(ptr) - 1] = '\0';  // Remove the 'h' suffix
+    }
+    unsigned int num = strtol(ptr, NULL, 16);
+    printf("--Hex: %s, Binary: ", ptr);
+
+    // Encuentra y elimina ceros a la izquierda
+    int leading = 1; // Flag para detectar el primer '1'
+    for (int i = sizeof(num) * 8 - 1; i >= 0; i--) {
+        if (num & (1 << i)) {
+            putchar('1');
+            leading = 0;
+        } else if (!leading) {
+            putchar('0');
+        }
+    }
+    if (leading) { // Si el número es cero
+        putchar('0');
+    }
+    putchar('\n');
+    return HEX_NUMBER;
+    }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-{  numeros = atoi(yytext); return NUMBER; }
+{  
+    numeros = atoi(yytext);
+    unsigned int num = (unsigned int)numeros;
+    printf("--Decimal: %s, Binary: ", yytext);
+
+    // Encuentra y elimina ceros a la izquierda
+    int leading = 1; // Flag para detectar el primer '1'
+    for (int i = sizeof(num) * 8 - 1; i >= 0; i--) {
+        if (num & (1 << i)) {
+            putchar('1');
+            leading = 0;
+        } else if (!leading) {
+            putchar('0');
+        }
+    }
+    if (leading) { // Si el número es cero
+        putchar('0');
+    }
+    putchar('\n');
+    return NUMBER;
+    }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
