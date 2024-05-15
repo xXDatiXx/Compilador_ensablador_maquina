@@ -290,11 +290,11 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 #define YY_END_OF_BUFFER 27
 static yyconst short int yy_accept[63] =
     {   0,
-        0,    0,   27,   25,   24,   22,   25,   23,   18,   18,
+        0,    0,   27,   25,   24,   22,   25,   23,   19,   19,
        17,   21,   21,   21,   21,   21,   21,   21,   21,   21,
-       21,   21,   24,    0,   18,    0,   17,   21,   13,   14,
+       21,   21,   24,    0,   19,    0,   17,   21,   13,   14,
        21,   15,   12,   11,   16,   21,    8,   21,    7,   21,
-       21,   21,   21,    0,   19,   10,    9,    4,    6,    3,
+       21,   21,   21,    0,   18,   10,    9,    4,    6,    3,
        21,    2,    5,    0,    0,   21,   20,    0,    0,    0,
         1,    0
     } ;
@@ -742,11 +742,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-{  numeros = atoi(yytext); return NUMBER; }
+{  return HEX_NUMBER;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-{  return HEX_NUMBER;}
+{  numeros = atoi(yytext); return NUMBER; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
@@ -758,11 +758,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-{ return *yytext; }
+{ /* ignorar saltos*/ }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-{ return *yytext; }
+{ return COMA; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
