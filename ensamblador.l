@@ -23,8 +23,8 @@ int numeros = 0;
 "je"            { return JE; }
 "inc"           { return INC; }
 "cmp"           { return CMP; }
-"dl"            { return REG; }
-"dh"            { return REG; }
+"dl"            { return DL; }
+"dh"            { return DH; }
 "ax"            { return AX; }
 "bx"            { return BX; }
 "cx"            { return CX; }

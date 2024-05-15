@@ -1,5 +1,5 @@
-%token MOV INToken RET JMP JZ JE INC CMP ORG COMA LABEL
-%token REG DL DH AX BX CX DX BL
+%token ORG MOV INToken RET JMP JZ JE INC CMP COMA LABEL
+%token DL DH AX BX CX DX BL
 
 %{
     #include <stdio.h>
@@ -37,22 +37,21 @@ statement:
     ;
 
 instruction:
-    ORG HEX_NUMBER { printf("name instrucción\n") }
+    ORG HEX_NUMBER                   { printf("ORG instruction\n"); }
     | MOV expression COMA expression { printf("MOV instruction\n"); }
-    | INToken expression          { printf("INT instruction\n"); }
-    | INC expression              { printf("INC instruction\n")}
-    | JMP expression              { printf("JMP instruction\n"); }
-    | JZ expression               { printf("JZ instruction\n"); }
-    | JE expression               { printf("JE instruction\n"); }
+    | INToken expression             { printf("INT instruction\n"); }
+    | INC expression                 { printf("INC instruction\n")}
+    | JMP expression                 { printf("JMP instruction\n"); }
+    | JZ expression                  { printf("JZ instruction\n"); }
+    | JE expression                  { printf("JE instruction\n"); }
     | CMP expression COMA expression { printf("CMP instruction\n"); }
-    | RET                         { printf("RET instruction\n"); }
-    | LABEL                       { printf("LABEL \n"); }
+    | RET                            { printf("RET instruction\n"); }
+    | LABEL                          { printf("LABEL \n"); }
     ;
 
 
 expression:
     NUMBER                                              
-  | REG                                 { $$ = 0; } // You might want to handle registers differently
   | DL
   | DH
   | AX

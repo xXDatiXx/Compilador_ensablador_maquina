@@ -39,27 +39,26 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     MOV = 258,
-     INToken = 259,
-     RET = 260,
-     JMP = 261,
-     JZ = 262,
-     JE = 263,
-     INC = 264,
-     CMP = 265,
-     ORG = 266,
+     ORG = 258,
+     MOV = 259,
+     INToken = 260,
+     RET = 261,
+     JMP = 262,
+     JZ = 263,
+     JE = 264,
+     INC = 265,
+     CMP = 266,
      COMA = 267,
      LABEL = 268,
-     REG = 269,
-     DL = 270,
-     DH = 271,
-     AX = 272,
-     BX = 273,
-     CX = 274,
-     DX = 275,
-     BL = 276,
-     NUMBER = 277,
-     HEX_NUMBER = 278
+     DL = 269,
+     DH = 270,
+     AX = 271,
+     BX = 272,
+     CX = 273,
+     DX = 274,
+     BL = 275,
+     NUMBER = 276,
+     HEX_NUMBER = 277
    };
 #endif
 

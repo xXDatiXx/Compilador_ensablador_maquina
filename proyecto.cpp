@@ -725,11 +725,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-{ return REG; }
+{ return DL; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-{ return REG; }
+{ return DH; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
