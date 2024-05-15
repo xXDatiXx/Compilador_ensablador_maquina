@@ -47,16 +47,17 @@
      JE = 263,
      INC = 264,
      CMP = 265,
-     REG = 266,
-     DL = 267,
-     DH = 268,
-     AX = 269,
-     BX = 270,
-     CX = 271,
-     DX = 272,
-     NUMBER = 273,
-     HEX_NUMBER = 274,
-     LABEL = 275
+     ORG = 266,
+     REG = 267,
+     DL = 268,
+     DH = 269,
+     AX = 270,
+     BX = 271,
+     CX = 272,
+     DX = 273,
+     NUMBER = 274,
+     HEX_NUMBER = 275,
+     LABEL = 276
    };
 #endif
 

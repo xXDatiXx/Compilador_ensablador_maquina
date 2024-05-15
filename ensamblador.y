@@ -1,4 +1,4 @@
-%token MOV INToken RET JMP JZ JE INC CMP
+%token MOV INToken RET JMP JZ JE INC CMP ORG
 %token REG DL DH AX BX CX DX 
 
 %{
@@ -34,11 +34,13 @@ program:
     ;
 
 statement:
-    instruction ';'               { /* acción */ }
+      instruction '\n'    { /* acción cuando se parsea una instrucción seguida por un salto de línea */ }
+    | instruction          { /* acción para instrucción sin salto de línea al final */ }
     ;
 
 instruction:
-    MOV expression ',' expression { printf("MOV instruction\n"); }
+        ORG NUMBER { /* acción cuando se encuentra `org` seguido por un número */ }
+    | MOV expression ',' expression { printf("MOV instruction\n"); }
     | INToken expression          { printf("INT instruction\n"); }
     | JMP expression              { printf("JMP instruction\n"); }
     | JZ expression               { printf("JZ instruction\n"); }
