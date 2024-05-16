@@ -1,5 +1,5 @@
 %token ORG MOV INToken RET JMP JZ JE INC CMP LABEL
-%token DL DH AX BX CX BL AH BH
+%token DL DH AX BX CX BL AH BH AL
 
 %{
     #include <stdio.h>
@@ -43,6 +43,7 @@ instruction:
     | MOV CX                        { printf("--MOV CX instruction: F9\n"); }
     | MOV BL                        { printf("--MOV BL instruction: F9\n"); }
     | MOV BH                        { printf("--MOV BH instruction: EA\n"); }
+    | MOV AL                        { printf("--MOB AL instruction: E9"); }
     | INToken expression            { printf("--INT instruction: F7\n"); }
     | INC expression                { printf("--INC instruction: F6\n"); }
     | INC BL                        { printf("--INC BL instruction: F5\n"); }

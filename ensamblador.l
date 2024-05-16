@@ -34,6 +34,7 @@ int numeros = 0;
 "cx"            { return CX; }
 "bl"            { return BL; }
 "bh"            { return BH; }
+"al"            { return AL; }
 
 ";"[^\n]*       { /* ignorar comentarios*/ }
 

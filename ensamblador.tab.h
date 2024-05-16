@@ -57,8 +57,9 @@
      BL = 273,
      AH = 274,
      BH = 275,
-     NUMBER = 276,
-     HEX_NUMBER = 277
+     AL = 276,
+     NUMBER = 277,
+     HEX_NUMBER = 278
    };
 #endif
 
