@@ -1,5 +1,5 @@
-%token ORG MOV INToken RET JMP JZ JE INC CMP COMA LABEL
-%token DL DH AX BX CX DX BL
+%token ORG MOV INToken RET JMP JZ JE INC CMP LABEL
+%token DL DH AX BX CX BL AH BH
 
 %{
     #include <stdio.h>
@@ -34,30 +34,36 @@ statement:
     ;
 
 instruction:
-    ORG expression                   { printf("--ORG instruction: 0000 0001\n"); }
-    | MOV expression COMA expression { printf("--MOV instruction: 0000 0010\n"); }
-    | INToken expression             { printf("--INT instruction: 0000 0011\n"); }
-    | INC expression                 { printf("--INC instruction: 0000 0100\n"); }
-    | JMP expression                 { printf("--JMP instruction: 0000 0101\n"); }
-    | JZ expression                  { printf("--JZ instruction: 0000 0110\n"); }
-    | JE expression                  { printf("--JE instruction: 0000 0111\n"); }
-    | CMP expression COMA expression { printf("--CMP instruction: 0000 1000\n"); }
-    | RET                            { printf("--RET instruction: 0000 1001\n"); }
-    | LABEL                          { printf("--LABEL instruction: 0000 1010 \n"); }
+    ORG expression                  { printf("--ORG instruction: FF\n"); }
+    | MOV AX                        { printf("--MOV AX instruction: FE\n"); }
+    | MOV BX                        { printf("--MOV BX instruction: FD\n"); }
+    | MOV DL                        { printf("--MOV DL instruction: FC\n"); }
+    | MOV DH                        { printf("--MOV DH instruction: FB\n"); }
+    | MOV AH                        { printf("--MOV AH instruction: FA\n"); }
+    | MOV CX                        { printf("--MOV CX instruction: F9\n"); }
+    | MOV BL                        { printf("--MOV BL instruction: F9\n"); }
+    | MOV BH                        { printf("--MOV BH instruction: EA\n"); }
+    | INToken expression            { printf("--INT instruction: F7\n"); }
+    | INC expression                { printf("--INC instruction: F6\n"); }
+    | INC BL                        { printf("--INC BL instruction: F5\n"); }
+    | INC DH                        { printf("--INC DH instruction: F4\n"); }
+    | INC DL                        { printf("--INC DL instruction: F3\n"); }
+    | JMP expression                { printf("--JMP instruction: F2\n"); }
+    | JZ expression                 { printf("--JZ instruction: F1\n"); }
+    | JE expression                 { printf("--JE instruction: F0\n"); }
+    | CMP DH                        { printf("--CMP DH instruction: EF\n"); }
+    | CMP DL                        { printf("--CMP DL instruction: EE\n"); }
+    | RET                           { printf("--RET instruction: ED\n"); }
+    | LABEL                         { printf("--LABEL instruction: EC \n"); }
+    | NUMBER                        { /* Se imprime en flex */ }
+    | HEX_NUMBER                    { /* Se imprime en flex*/ }      
+
     ;
 
 
-expression:
-    NUMBER           { /* Se imprime en lex */ }                                   
-  | DL               { printf("--DL expression: 0000 1100\n"); }      
-  | DH               { printf("--DH expression: 0000 1101\n"); }      
-  | AX               { printf("--AX expression: 0000 1110\n"); }      
-  | BX               { printf("--BX expression: 0000 1111\n"); }      
-  | CX               { printf("--CX expression: 0001 0000\n"); }      
-  | DX               { printf("--DX expression: 0001 0001\n"); }      
-  | BL               { printf("--BL expression: 0001 0010\n"); }      
-  | HEX_NUMBER       { /* Se imprime en flex*/ }      
-  | LABEL            { printf("--LABEL expression:0001 0100")}
+expression:  
+  HEX_NUMBER       { /* Se imprime en flex*/ }      
+  | LABEL            { printf("--LABEL expression: EB")}
 ;
 
 

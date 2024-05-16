@@ -29,67 +29,39 @@ int numeros = 0;
 "dl"            { return DL; }
 "dh"            { return DH; }
 "ax"            { return AX; }
+"ah"            { return AH; }
 "bx"            { return BX; }
 "cx"            { return CX; }
-"dx"            { return DX; }
 "bl"            { return BL; }
+"bh"            { return BH; }
 
 ";"[^\n]*       { /* ignorar comentarios*/ }
 
 (0x[a-fA-F0-9]+|[a-fA-F0-9]+"h") { 
-    char *ptr = yytext;
-    if (ptr[0] == '0' && (ptr[1] == 'x' || ptr[1] == 'X')) {
-        ptr += 2;  // Skip the '0x' prefix
-    } else {
-        ptr[strlen(ptr) - 1] = '\0';  // Remove the 'h' suffix
+    printf("--Hexadecimal: ");
+    char *hex_end = strchr(yytext, 'h');  
+    if (hex_end && hex_end == yytext + strlen(yytext) - 1) {  
+        *hex_end = '\0'; 
     }
-    unsigned int num = strtol(ptr, NULL, 16);
-    printf("--Hex: %s, Binary: ", ptr);
-
-    // Encuentra y elimina ceros a la izquierda
-    int leading = 1; // Flag para detectar el primer '1'
-    for (int i = sizeof(num) * 8 - 1; i >= 0; i--) {
-        if (num & (1 << i)) {
-            putchar('1');
-            leading = 0;
-        } else if (!leading) {
-            putchar('0');
-        }
-    }
-    if (leading) { // Si el número es cero
-        putchar('0');
-    }
-    putchar('\n');
+    printf("%s", yytext);
+    printf("\n");
     return HEX_NUMBER;
     }
 
 [0-9]+          {  
     numeros = atoi(yytext);
     unsigned int num = (unsigned int)numeros;
-    printf("--Decimal: %s, Binary: ", yytext);
-
-    // Encuentra y elimina ceros a la izquierda
-    int leading = 1; // Flag para detectar el primer '1'
-    for (int i = sizeof(num) * 8 - 1; i >= 0; i--) {
-        if (num & (1 << i)) {
-            putchar('1');
-            leading = 0;
-        } else if (!leading) {
-            putchar('0');
-        }
-    }
-    if (leading) { // Si el número es cero
-        putchar('0');
-    }
-    putchar('\n');
+    printf("--Decimal: %s, Hexadecimal: %X\n", yytext, num);
+    printf("\n");
     return NUMBER;
     }
+
 
 '\''[^\']*\'' { /* acción para capturar caracteres entre comillas simples */ }
 
 [a-zA-Z_][a-zA-Z0-9_]*":"|[a-zA-Z_][a-zA-Z0-9_]* {  return LABEL; }
 
-","        { return COMA; }
+","        { /* ignorar comas*/ }
 
 "\n"               { /* ignorar saltos*/ }
 

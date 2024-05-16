@@ -113,15 +113,15 @@
      JE = 264,
      INC = 265,
      CMP = 266,
-     COMA = 267,
-     LABEL = 268,
-     DL = 269,
-     DH = 270,
-     AX = 271,
-     BX = 272,
-     CX = 273,
-     DX = 274,
-     BL = 275,
+     LABEL = 267,
+     DL = 268,
+     DH = 269,
+     AX = 270,
+     BX = 271,
+     CX = 272,
+     BL = 273,
+     AH = 274,
+     BH = 275,
      NUMBER = 276,
      HEX_NUMBER = 277
    };
@@ -371,9 +371,9 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  5
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  24
+#define YYNRULES  29
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  37
+#define YYNSTATES  38
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -420,29 +420,30 @@ static const yytype_uint8 yytranslate[] =
    YYRHS.  */
 static const yytype_uint8 yyprhs[] =
 {
-       0,     0,     3,     4,     7,     9,    12,    17,    20,    23,
-      26,    29,    32,    37,    39,    41,    43,    45,    47,    49,
-      51,    53,    55,    57,    59
+       0,     0,     3,     4,     7,     9,    12,    15,    18,    21,
+      24,    27,    30,    33,    36,    39,    42,    45,    48,    51,
+      54,    57,    60,    63,    66,    68,    70,    72,    74,    76
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
       25,     0,    -1,    -1,    25,    26,    -1,    27,    -1,     3,
-      28,    -1,     4,    28,    12,    28,    -1,     5,    28,    -1,
-      10,    28,    -1,     7,    28,    -1,     8,    28,    -1,     9,
-      28,    -1,    11,    28,    12,    28,    -1,     6,    -1,    13,
-      -1,    21,    -1,    14,    -1,    15,    -1,    16,    -1,    17,
-      -1,    18,    -1,    19,    -1,    20,    -1,    22,    -1,    13,
-      -1
+      28,    -1,     4,    15,    -1,     4,    16,    -1,     4,    13,
+      -1,     4,    14,    -1,     4,    19,    -1,     4,    17,    -1,
+       4,    18,    -1,     4,    20,    -1,     5,    28,    -1,    10,
+      28,    -1,    10,    18,    -1,    10,    14,    -1,    10,    13,
+      -1,     7,    28,    -1,     8,    28,    -1,     9,    28,    -1,
+      11,    14,    -1,    11,    13,    -1,     6,    -1,    12,    -1,
+      21,    -1,    22,    -1,    22,    -1,    12,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
        0,    28,    28,    29,    33,    37,    38,    39,    40,    41,
-      42,    43,    44,    45,    46,    51,    52,    53,    54,    55,
-      56,    57,    58,    59,    60
+      42,    43,    44,    45,    46,    47,    48,    49,    50,    51,
+      52,    53,    54,    55,    56,    57,    58,    59,    65,    66
 };
 #endif
 
@@ -452,8 +453,8 @@ static const yytype_uint8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "ORG", "MOV", "INToken", "RET", "JMP",
-  "JZ", "JE", "INC", "CMP", "COMA", "LABEL", "DL", "DH", "AX", "BX", "CX",
-  "DX", "BL", "NUMBER", "HEX_NUMBER", "\",\"", "$accept", "program",
+  "JZ", "JE", "INC", "CMP", "LABEL", "DL", "DH", "AX", "BX", "CX", "BL",
+  "AH", "BH", "NUMBER", "HEX_NUMBER", "\",\"", "$accept", "program",
   "statement", "instruction", "expression", 0
 };
 #endif
@@ -473,16 +474,16 @@ static const yytype_uint16 yytoknum[] =
 static const yytype_uint8 yyr1[] =
 {
        0,    24,    25,    25,    26,    27,    27,    27,    27,    27,
-      27,    27,    27,    27,    27,    28,    28,    28,    28,    28,
-      28,    28,    28,    28,    28
+      27,    27,    27,    27,    27,    27,    27,    27,    27,    27,
+      27,    27,    27,    27,    27,    27,    27,    27,    28,    28
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     0,     2,     1,     2,     4,     2,     2,     2,
-       2,     2,     4,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1
+       0,     2,     0,     2,     1,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     1,     1,     1,     1,     1,     1
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -490,33 +491,33 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       2,     0,     1,     0,     0,     0,    13,     0,     0,     0,
-       0,     0,    14,     3,     4,    24,    16,    17,    18,    19,
-      20,    21,    22,    15,    23,     5,     0,     7,     9,    10,
-      11,     8,     0,     0,     0,     6,    12
+       2,     0,     1,     0,     0,     0,    24,     0,     0,     0,
+       0,     0,    25,    26,    27,     3,     4,    29,    28,     5,
+       8,     9,     6,     7,    11,    12,    10,    13,    14,    19,
+      20,    21,    18,    17,    16,    15,    23,    22
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     1,    13,    14,    25
+      -1,     1,    15,    16,    19
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -11
+#define YYPACT_NINF -13
 static const yytype_int8 yypact[] =
 {
-     -11,     8,   -11,    18,    18,    18,   -11,    18,    18,    18,
-      18,    18,   -11,   -11,   -11,   -11,   -11,   -11,   -11,   -11,
-     -11,   -11,   -11,   -11,   -11,   -11,   -10,   -11,   -11,   -11,
-     -11,   -11,    -3,    18,    18,   -11,   -11
+     -13,     0,   -13,     4,    14,     4,   -13,     4,     4,     4,
+       1,   -12,   -13,   -13,   -13,   -13,   -13,   -13,   -13,   -13,
+     -13,   -13,   -13,   -13,   -13,   -13,   -13,   -13,   -13,   -13,
+     -13,   -13,   -13,   -13,   -13,   -13,   -13,   -13
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -11,   -11,   -11,   -11,    -4
+     -13,   -13,   -13,   -13,    30
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -526,20 +527,20 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-      26,    27,    33,    28,    29,    30,    31,    32,     2,    34,
-       0,     3,     4,     5,     6,     7,     8,     9,    10,    11,
-       0,    12,     0,     0,     0,     0,     0,     0,     0,    35,
-      36,    15,    16,    17,    18,    19,    20,    21,    22,    23,
-      24
+       2,    36,    37,     3,     4,     5,     6,     7,     8,     9,
+      10,    11,    12,    17,    32,    33,    17,     0,     0,    34,
+       0,    13,    14,    18,     0,     0,    18,    20,    21,    22,
+      23,    24,    25,    26,    27,    28,     0,    29,    30,    31,
+      35
 };
 
 static const yytype_int8 yycheck[] =
 {
-       4,     5,    12,     7,     8,     9,    10,    11,     0,    12,
-      -1,     3,     4,     5,     6,     7,     8,     9,    10,    11,
-      -1,    13,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    33,
-      34,    13,    14,    15,    16,    17,    18,    19,    20,    21,
-      22
+       0,    13,    14,     3,     4,     5,     6,     7,     8,     9,
+      10,    11,    12,    12,    13,    14,    12,    -1,    -1,    18,
+      -1,    21,    22,    22,    -1,    -1,    22,    13,    14,    15,
+      16,    17,    18,    19,    20,     5,    -1,     7,     8,     9,
+      10
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -547,9 +548,9 @@ static const yytype_int8 yycheck[] =
 static const yytype_uint8 yystos[] =
 {
        0,    25,     0,     3,     4,     5,     6,     7,     8,     9,
-      10,    11,    13,    26,    27,    13,    14,    15,    16,    17,
-      18,    19,    20,    21,    22,    28,    28,    28,    28,    28,
-      28,    28,    28,    12,    12,    28,    28
+      10,    11,    12,    21,    22,    26,    27,    12,    22,    28,
+      13,    14,    15,    16,    17,    18,    19,    20,    28,    28,
+      28,    28,    13,    14,    18,    28,    13,    14
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1362,102 +1363,127 @@ yyreduce:
     {
         case 5:
 
-    { printf("--ORG instruction: 0000 0001\n"); ;}
+    { printf("--ORG instruction: FF\n"); ;}
     break;
 
   case 6:
 
-    { printf("--MOV instruction: 0000 0010\n"); ;}
+    { printf("--MOV AX instruction: FE\n"); ;}
     break;
 
   case 7:
 
-    { printf("--INT instruction: 0000 0011\n"); ;}
+    { printf("--MOV BX instruction: FD\n"); ;}
     break;
 
   case 8:
 
-    { printf("--INC instruction: 0000 0100\n"); ;}
+    { printf("--MOV DL instruction: FC\n"); ;}
     break;
 
   case 9:
 
-    { printf("--JMP instruction: 0000 0101\n"); ;}
+    { printf("--MOV DH instruction: FB\n"); ;}
     break;
 
   case 10:
 
-    { printf("--JZ instruction: 0000 0110\n"); ;}
+    { printf("--MOV AH instruction: FA\n"); ;}
     break;
 
   case 11:
 
-    { printf("--JE instruction: 0000 0111\n"); ;}
+    { printf("--MOV CX instruction: F9\n"); ;}
     break;
 
   case 12:
 
-    { printf("--CMP instruction: 0000 1000\n"); ;}
+    { printf("--MOV BL instruction: F9\n"); ;}
     break;
 
   case 13:
 
-    { printf("--RET instruction: 0000 1001\n"); ;}
+    { printf("--MOV BH instruction: EA\n"); ;}
     break;
 
   case 14:
 
-    { printf("--LABEL instruction: 0000 1010 \n"); ;}
+    { printf("--INT instruction: F7\n"); ;}
     break;
 
   case 15:
 
-    { /* Se imprime en lex */ ;}
+    { printf("--INC instruction: F6\n"); ;}
     break;
 
   case 16:
 
-    { printf("--DL expression: 0000 1100\n"); ;}
+    { printf("--INC BL instruction: F5\n"); ;}
     break;
 
   case 17:
 
-    { printf("--DH expression: 0000 1101\n"); ;}
+    { printf("--INC DH instruction: F4\n"); ;}
     break;
 
   case 18:
 
-    { printf("--AX expression: 0000 1110\n"); ;}
+    { printf("--INC DL instruction: F3\n"); ;}
     break;
 
   case 19:
 
-    { printf("--BX expression: 0000 1111\n"); ;}
+    { printf("--JMP instruction: F2\n"); ;}
     break;
 
   case 20:
 
-    { printf("--CX expression: 0001 0000\n"); ;}
+    { printf("--JZ instruction: F1\n"); ;}
     break;
 
   case 21:
 
-    { printf("--DX expression: 0001 0001\n"); ;}
+    { printf("--JE instruction: F0\n"); ;}
     break;
 
   case 22:
 
-    { printf("--BL expression: 0001 0010\n"); ;}
+    { printf("--CMP DH instruction: EF\n"); ;}
     break;
 
   case 23:
 
-    { /* Se imprime en flex*/ ;}
+    { printf("--CMP DL instruction: EE\n"); ;}
     break;
 
   case 24:
 
-    { printf("--LABEL expression:0001 0100");}
+    { printf("--RET instruction: ED\n"); ;}
+    break;
+
+  case 25:
+
+    { printf("--LABEL instruction: EC \n"); ;}
+    break;
+
+  case 26:
+
+    { /* Se imprime en flex */ ;}
+    break;
+
+  case 27:
+
+    { /* Se imprime en flex*/ ;}
+    break;
+
+  case 28:
+
+    { /* Se imprime en flex*/ ;}
+    break;
+
+  case 29:
+
+    { printf("--LABEL expression: EB");}
     break;
 
 
